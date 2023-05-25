@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PlayerProfile = () => {
+const PlayerProfile = (): JSX.Element => {
     return (
         <div className={`flex flex-col justify-between items-center gap-7`}>
 

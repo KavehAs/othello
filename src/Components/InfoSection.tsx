@@ -1,7 +1,7 @@
 import React from 'react';
 import PlayerProfile from './PlayerProfile';
 
-const InfoSection = () => {
+const InfoSection = (): JSX.Element => {
     return (
         <div className="w-full lg:w-1/4 xl:w-[30%] py-5 px-7 md:py-7 md:px-10 lg:py-16 lg:px-0
         xl:py-24 xl:px-12 absolute lg:sticky flex justify-between items-center lg:flex-col gap-20 md:gap-40 lg:gap-36 xl:gap-24 top-0">

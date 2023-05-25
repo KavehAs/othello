@@ -16,8 +16,13 @@ module.exports = {
       colors:{
         'mainColor' : '#f3e5f5' ,
         'primaryColor' : '#2979ff' ,
-        'black' : '#212121' ,
+        'dark' : '#212121' ,
         'purple' : '#ba68c8' ,
+      } ,
+      boxShadow: {
+        'neu-field-lg' : '5px 5px 11px #e4d7e6, -5px -5px 11px #fff3ff;' ,
+        'neu-field' : '1px 1px 6px #e4d7e6, -1px -1px 6px #fff3ff' ,
+        'neu-disk' : '0px 1px 64px 2px rgba(0, 0, 0, 0.41)'
       }
     },
   },
