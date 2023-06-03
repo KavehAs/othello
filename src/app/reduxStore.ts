@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { playgroundSlice } from '../features/playground/playgroundSlice'
+import { AnyAction, configureStore } from '@reduxjs/toolkit'
+import { playgroundSlice, playgroundType } from '../features/playground/playgroundSlice'
 
 export const store = configureStore({
   reducer: {
-    // playground : playgroundSlice ,
+    playground : playgroundSlice.reducer ,
   },
 })
 
