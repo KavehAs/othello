@@ -16,7 +16,7 @@ const PlayGround = (): JSX.Element => {
     >
       <div
         id="field"
-        className="w-full rounded-2xl p-3 grid grid-cols-8 grid-rows-8
+        className="w-full mt-24 rounded-2xl p-3 grid grid-cols-8 grid-rows-8
             shadow-neu-ground lg:max-xl:p-2 sm:max-md:p-2 sm:max-md:rounded-xl"
       >
         {row1.map((item) => (
@@ -26,7 +26,6 @@ const PlayGround = (): JSX.Element => {
             isEmpty={item.isEmpty}
             isPossible={item.isPossible}
             diskId={item.diskId}
-            // handler={nutsClickHandler}
           />
         ))}
 
@@ -37,7 +36,6 @@ const PlayGround = (): JSX.Element => {
             isEmpty={item.isEmpty}
             isPossible={item.isPossible}
             diskId={item.diskId}
-            // handler={nutsClickHandler}
           />
         ))}
 
@@ -48,7 +46,6 @@ const PlayGround = (): JSX.Element => {
             isEmpty={item.isEmpty}
             isPossible={item.isPossible}
             diskId={item.diskId}
-            // handler={nutsClickHandler}
           />
         ))}
 
@@ -59,7 +56,6 @@ const PlayGround = (): JSX.Element => {
             isEmpty={item.isEmpty}
             isPossible={item.isPossible}
             diskId={item.diskId}
-            // handler={nutsClickHandler}
           />
         ))}
 
@@ -70,7 +66,6 @@ const PlayGround = (): JSX.Element => {
             isEmpty={item.isEmpty}
             isPossible={item.isPossible}
             diskId={item.diskId}
-            // handler={nutsClickHandler}
           />
         ))}
 
@@ -81,7 +76,6 @@ const PlayGround = (): JSX.Element => {
             isEmpty={item.isEmpty}
             isPossible={item.isPossible}
             diskId={item.diskId}
-            // handler={nutsClickHandler}
           />
         ))}
 
@@ -92,7 +86,6 @@ const PlayGround = (): JSX.Element => {
             isEmpty={item.isEmpty}
             isPossible={item.isPossible}
             diskId={item.diskId}
-            // handler={nutsClickHandler}
           />
         ))}
 
@@ -103,7 +96,6 @@ const PlayGround = (): JSX.Element => {
             isEmpty={item.isEmpty}
             isPossible={item.isPossible}
             diskId={item.diskId}
-            // handler={nutsClickHandler}
           />
         ))}
       </div>
