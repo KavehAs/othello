@@ -1,17 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { disksClickHandler } from './helper'
+import { disksClickHandler, findPossibleMoves } from '../helper'
 // import type { RootState } from '../../app/reduxStore'
 
 export interface playgroundType {
   disks: {
     diskId: string, color: null | "purple" | "black", isEmpty: boolean, isPossible: boolean
-  }[][] ,
+  }[][],
   playerTurn: "black" | "purple",
   blackNumber: number,
   purpleNumber: number,
-  orderOfRowsName : string[] ,
-  endOfPossibilities : boolean ,
+  orderOfRowsName: string[],
+  endOfPossibilities: boolean,
+  endGame: boolean,
+  showModal: boolean, // state to handle modal
+  modalText: string,
 }
 
 const initialState: playgroundType = {
@@ -101,24 +104,52 @@ const initialState: playgroundType = {
   playerTurn: "black",
   blackNumber: 2, // number of each color disks
   purpleNumber: 2,
-  orderOfRowsName : ["a", "b", "c", "d", "e", "f", "g", "h"],  // we get row index of nuts array of object with this order
+  orderOfRowsName: ["a", "b", "c", "d", "e", "f", "g", "h"],  // we get row index of nuts array of object with this order
 
-  endOfPossibilities : false,
+  endOfPossibilities: false,
   // Boolean to detect all Possibilities for two colors have ended
+
+  endGame: false,
+  // true means we have a winner
+
+  showModal: false, // state to handle modal
+  modalText: "",
 }
 
 export const playgroundSlice = createSlice({
   name: 'playground',
   initialState,
   reducers: {
-    diskClicked : (state , action : PayloadAction<{diskId : string , isEmpty : boolean , isPossible : boolean}> ) => {
-      state.disks = disksClickHandler(state , action.payload);
+    diskClicked: (state, action: PayloadAction<{ diskId: string, isEmpty: boolean, isPossible: boolean }>) => {
+      state.disks = disksClickHandler(state, action.payload);
+    },
+    changePlayerTurn: (state) => {
+      state.playerTurn = (state.playerTurn == "black" ? "purple" : "black");
+    },
+    possibleMoves: (state) => {
+      state.disks = findPossibleMoves(state);
+    },
+    setDiskQuantities: (state, action: PayloadAction<{ blackQuantity: number, purpleQuantity: number }>) => {
+      state.blackNumber = action.payload.blackQuantity;
+      state.purpleNumber = action.payload.purpleQuantity;
+    },
+    setEndOfPossibilities: (state, action: PayloadAction<boolean>) => {
+      state.endOfPossibilities = action.payload;
+    },
+    setEndGame: (state) => {
+      state.endGame = true;
+    } , 
+    setModalText: (state , action : PayloadAction<string>) => {
+      state.modalText = action.payload;
+      state.showModal = true;
+    } ,
+    gameReset : (state) => {
+      state = initialState ;
     }
   }
-
 })
 
 
 export default playgroundSlice.reducer;
 
-export const { diskClicked } = playgroundSlice.actions;
+export const { diskClicked, changePlayerTurn, possibleMoves, setDiskQuantities, setEndOfPossibilities, setEndGame , setModalText , gameReset} = playgroundSlice.actions;
