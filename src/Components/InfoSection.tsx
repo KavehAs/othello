@@ -1,10 +1,13 @@
 import React from 'react';
 import PlayerProfile from './PlayerProfile';
-import { useAppSelector } from '../app/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../app/reduxHooks';
+import { gameReset, setModalText } from '../features/playground/playgroundSlice';
 
 const InfoSection = (): JSX.Element => {
 
     const playGroundData = useAppSelector(state => state.playground)
+
+    const dispatch = useAppDispatch()
 
     return (
         <div className="w-full h-screen fixed lg:w-1/4 xl:w-[30%] py-5 px-6 md:py-7 md:px-10 lg:py-16 lg:px-0
@@ -15,7 +18,8 @@ const InfoSection = (): JSX.Element => {
                 <PlayerProfile player={"purple"} playerNumber={2} disksQuantity={playGroundData.purpleNumber} />
             </div>
 
-            <button className="w-24 lg:w-32 xl:w-44 py-2 lg:py-2.5 xl:py-3.5 text-center text-primaryColor lg:text-2xl font-medium rounded-2xl buttonLinearBG buttonShadow transition-all select-none hover:buttonPressedShadow">Reset</button>
+            <button className="w-24 lg:w-32 xl:w-44 py-2 lg:py-2.5 xl:py-3.5 text-center text-primaryColor lg:text-2xl font-medium rounded-2xl buttonLinearBG shadow-buttonShadow transition-all select-none hover:shadow-buttonPressedShadow"
+            onClick={() => dispatch(gameReset())}>Reset</button>
         </div>
     );
 };

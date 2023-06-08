@@ -23,7 +23,10 @@ module.exports = {
         'neu-field-lg': '5px 5px 11px #e4d7e6, -5px -5px 11px #fff3ff;',
         'neu-field': '1px 1px 6px #e4d7e6, -1px -1px 6px #fff3ff',
         'neu-disk': '0px 1px 64px 2px rgba(0, 0, 0, 0.41)' ,
-        'neu-ground' : 'inset 5px 5px 14px #cfc3d0, inset -5px -5px 14px #ffffff;'
+        'neu-ground' : 'inset 5px 5px 14px #cfc3d0, inset -5px -5px 14px #ffffff;' ,
+        'buttonShadow' : '10px 10px 20px #c7bcc9, -10px -10px 20px #ffffff' ,
+        'buttonPressedShadow' : '5px 5px 10px #c7bcc9, -5px -5px 10px #ffffff' ,
+        'mainShadow' : '6px 6px 17px #d3c7d5, -6px -6px 20px #ffffff' ,
       },
       gridTemplateRows: {
         // Simple 8 row grid
