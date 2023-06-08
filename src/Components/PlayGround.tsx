@@ -50,12 +50,12 @@ const PlayGround = (): JSX.Element => {
     <div
       id="playground"
       className="w-full min-h-screen p-2  flex flex-row justify-center items-center
-        xl:w-[70%] xl:pt-16 lg:w-[75%] lg:p-8 md:p-5 sm:p-2 overflow-hidden overflow-x-hidden lg:overflow-scroll"
+        xl:w-[70%] xl:pt-16 lg:w-[75%] lg:p-8 md:p-5 sm:p-2 overflow-hidden lg:overflow-x-hidden "
     >
       <div
         id="field"
         className="w-full lg:mt-2 rounded-2xl p-3 grid grid-cols-8 grid-rows-8
-            shadow-neu-ground lg:max-xl:p-2 sm:max-md:p-2 sm:max-md:rounded-xl"
+            shadow-neu-ground lg:max-xl:p-2 sm:max-md:p-2 sm:max-md:rounded-xl "
       >
         {row1.map((item) => (
           <Disks
