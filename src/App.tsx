@@ -22,7 +22,7 @@ function App() {
   }, [playGroundData.endGame]);
 
   return (
-    <div className="w-full  min-h-screen max-h-screen bg-mainColor relative flex flex-col items-between gap-8 lg:flex-row md:gap-0">
+    <div className="w-full  min-h-screen  bg-mainColor relative flex flex-col items-between gap-0 lg:flex-row ">
       <InfoSection />
       <PlayGround />
       <GameResultModal />

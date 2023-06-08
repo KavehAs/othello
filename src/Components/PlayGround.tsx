@@ -49,12 +49,12 @@ const PlayGround = (): JSX.Element => {
   return (
     <div
       id="playground"
-      className="w-full p-2 mt-[10px] flex flex-row justify-center items-center
-        xl:w-[70%] xl:pt-16 lg:w-[75%] lg:p-8 md:p-5 sm:p-2 overflow-scroll overflow-x-hidden"
+      className="w-full min-h-screen p-2  flex flex-row justify-center items-center
+        xl:w-[70%] xl:pt-16 lg:w-[75%] lg:p-8 md:p-5 sm:p-2 overflow-hidden overflow-x-hidden lg:overflow-scroll"
     >
       <div
         id="field"
-        className="w-full mt-24 rounded-2xl p-3 grid grid-cols-8 grid-rows-8
+        className="w-full lg:mt-2 rounded-2xl p-3 grid grid-cols-8 grid-rows-8
             shadow-neu-ground lg:max-xl:p-2 sm:max-md:p-2 sm:max-md:rounded-xl"
       >
         {row1.map((item) => (

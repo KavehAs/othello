@@ -10,7 +10,7 @@ const InfoSection = (): JSX.Element => {
     const dispatch = useAppDispatch()
 
     return (
-        <div className="w-full h-screen fixed lg:w-1/4 xl:w-[30%] py-5 px-6 md:py-7 md:px-10 lg:py-16 lg:px-0
+        <div className="w-full lg:h-screen lg:w-1/4 xl:w-[30%] py-5 px-6 md:py-6 md:px-10 lg:py-16 lg:px-0
         xl:py-24 xl:px-12 lg:sticky flex justify-between items-center lg:flex-col gap-20 md:gap-40 lg:gap-36 xl:gap-24 top-0">
             
             <div className="flex justify-between items-center gap-8">
