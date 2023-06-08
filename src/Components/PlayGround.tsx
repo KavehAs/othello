@@ -44,7 +44,7 @@ const PlayGround = (): JSX.Element => {
     } else if (possibleCounter > 0) dispatch(setEndOfPossibilities(false));
     // here we set true to endOfPossibilities after detection no Possibilities so if the next
     // color has no move neither game would end but if it has endOfPossibilities set to false again
-  });
+  } , [playGroundData.playerTurn]);
 
   return (
     <div

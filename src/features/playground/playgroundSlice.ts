@@ -143,9 +143,7 @@ export const playgroundSlice = createSlice({
       state.modalText = action.payload;
       state.showModal = true;
     } ,
-    gameReset : (state) => {
-      state = initialState ;
-    }
+    gameReset : (state) =>  initialState ,
   }
 })
 
