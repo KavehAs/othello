@@ -28,6 +28,21 @@ module.exports = {
       gridTemplateRows: {
         // Simple 8 row grid
         '8': 'repeat(8, minmax(0, 1fr))',
+      } ,
+      keyframes: {
+        myTurn : {
+          '40%' : {
+            '-webkit-box-shadow': '0px 0px 1px 4px #2979ff' ,
+            'box-shadow': '0px 0px 1px 4px #2979ff'
+          } ,
+          '0%, 100%' : {
+            '-webkit-box-shadow': '0px 0px 2px 1px #2979ff',
+            'box-shadow': '0px 0px 2px 1px #2979ff'
+          }
+        }
+      } ,
+      animation : {
+        playerTurn : 'myTurn 2s linear infinite normal forwards'
       }
     },
   },

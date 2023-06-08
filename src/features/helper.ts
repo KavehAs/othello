@@ -411,27 +411,3 @@ export const findPossibleMoves = (playGroundData: playgroundType) => {
     }
     return disks;
 }
-
-// export function diskCounter(playGroundData : playgroundType){
-//     let blackCounter = 0,
-//     purpleCounter = 0,
-//     nutCounter = 0,
-//     possibleCounter = 0;
-//   for (const row of this.state.nuts) {
-//     for (const item of row) {
-//       switch (item.color) {
-//         case "black":
-//           blackCounter++;
-//           break;
-//         case "purple":
-//           purpleCounter++;
-//           break;
-//         default:
-//           break;
-//       }
-//       !item.empty && nutCounter++;
-//       item.isPossible && possibleCounter++;
-//     }
-//   }
-
-// }
