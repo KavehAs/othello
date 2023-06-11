@@ -1,6 +1,7 @@
-import React from "react";
 import { useAppDispatch } from "../app/reduxHooks";
-import { changePlayerTurn, diskClicked, possibleMoves } from "../features/playground/playgroundSlice";
+
+// Redux actions
+import { changePlayerTurn, diskClicked, setPossibleMoves } from "../features/playground/playgroundSlice";
 
 export interface DiskTypes {
   diskId: string;
@@ -22,14 +23,14 @@ const Disks = ({
         id="disk-container"
         className="flex flex-row justify-between items-center w-[32px] h-[32px] border rounded-md shadow-neu-field m-1 transition-all duration-200 ease-linear hover:translate-y-[-1px] hover:shadow-none 2xl:w-[75px] 2xl:h-[75px] 2xl:rounded-lg 2xl:shadow-neu-field-lg 2xl:m-3 xl:w-[65px] xl:h-[65px] md:w-[50px] md:h-[50px] md:m-1"
         onClick={() => {
-          if (isEmpty && isPossible) {
+          if (isEmpty && isPossible) { // playable if the disk is empty and possible to play
             dispatch(diskClicked({ diskId, isEmpty, isPossible }));
             dispatch(changePlayerTurn());
-            dispatch(possibleMoves());
+            dispatch(setPossibleMoves());
           }
         }}
       >
-        <div
+        <div // disks change style based on their situations
           id="disks"
           className={`rounded-full shadow-neu-disk m-auto ${
             (color === "black" && "bg-dark") ||

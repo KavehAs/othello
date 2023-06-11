@@ -1,7 +1,10 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import { CSSTransition } from "react-transition-group";
 import { useAppDispatch, useAppSelector } from "../app/reduxHooks";
+
+// Animation package for modal
+import { CSSTransition } from "react-transition-group";
+
+// Redux actions
 import { gameReset } from "../features/playground/playgroundSlice";
 
 const GameResultModal = (): JSX.Element => {
@@ -10,7 +13,7 @@ const GameResultModal = (): JSX.Element => {
 
   return ReactDOM.createPortal(
     <CSSTransition
-      in={playGroundData.showModal}
+      in={playGroundData.showModal} // Trigger when this variable is true
       unmountOnExit
       timeout={{ enter: 50, exit: 300 }}
     >

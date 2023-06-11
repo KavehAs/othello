@@ -1,7 +1,12 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/reduxHooks";
+
+// Components
 import Disks from "./Disks";
+
+// Redux actions
 import { changePlayerTurn, setDiskQuantities, setEndGame, setEndOfPossibilities } from "../features/playground/playgroundSlice";
+
 
 const PlayGround = (): JSX.Element => {
   const playGroundData = useAppSelector((state) => state.playground);
@@ -10,10 +15,10 @@ const PlayGround = (): JSX.Element => {
     disks: [row1, row2, row3, row4, row5, row6, row7, row8],
   } = playGroundData;
 
-  useEffect(() => {
+  useEffect(() => { // when ever player turn changes , this effect check the changes due to last move : disks number , possibilities of end game or winning situation
     let blackQuantity = 0,
       purpleQuantity = 0,
-      nutCounter = 0,
+      diskCounter = 0,
       possibleCounter = 0;
     for (const row of playGroundData.disks) {
       for (const item of row) {
@@ -27,13 +32,13 @@ const PlayGround = (): JSX.Element => {
           default:
             break;
         }
-        !item.isEmpty && nutCounter++;
+        !item.isEmpty && diskCounter++;
         item.isPossible && possibleCounter++;
       }
     }
     dispatch(setDiskQuantities({ blackQuantity, purpleQuantity }));
 
-    if (nutCounter === 64) dispatch(setEndGame()); // if there is no empty space that means game has ended and winner function runs
+    if (diskCounter === 64) dispatch(setEndGame()); // if there is no empty space that means game has ended and winner function runs
     else if (possibleCounter === 0) {
       if (playGroundData.endOfPossibilities)
         dispatch(setEndGame()) // if there were not any possible moves for each color game is done
@@ -50,13 +55,15 @@ const PlayGround = (): JSX.Element => {
     <div
       id="playground"
       className="w-full min-h-screen p-2  flex flex-row justify-center items-center
-        xl:w-[70%] xl:pt-16 lg:w-[75%] lg:p-8 md:p-5 sm:p-2 overflow-hidden lg:overflow-x-hidden "
+        xl:w-[70%] xl:pt-16 lg:w-[75%] lg:p-8 md:p-5 sm:p-2 overflow-hidden lg:overflow-x-hidden"
     >
       <div
         id="field"
         className="w-full lg:mt-2 rounded-2xl p-3 grid grid-cols-8 grid-rows-8
             shadow-neu-ground lg:max-xl:p-2 sm:max-md:p-2 sm:max-md:rounded-xl "
       >
+
+        {/* rendering the playground based on disk status array */}
         {row1.map((item) => (
           <Disks
             key={item.diskId}

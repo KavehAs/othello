@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppSelector } from '../app/reduxHooks';
 
 interface propsType {
@@ -16,13 +15,19 @@ const PlayerProfile = ({ player, playerNumber, disksQuantity }: propsType): JSX.
 
       <div id='profile-logo' className={`w-[50px] h-[50px] lg:w-[60px] lg:h-[60px] xl:w-[85px] xl:h-[85px]
          bg-mainColor rounded-full shadow-mainShadow flex justify-center items-center gap-0 text-xl
-         lg:text-2xl xl:text-3xl ${playerGroundData.playerTurn === player ? "animate-playerTurn" : "animate-none"} ${player === "black" ? "text-dark" : "text-purple"}`}>
+         lg:text-2xl xl:text-3xl 
+         ${playerGroundData.playerTurn === player ? "animate-playerTurn" : "animate-none"
+        // show animation for each player turn on its logo
+        } 
+        ${player === "black" ? "text-dark" : "text-purple"
+        // set text color based on player color
+        }`}>
         <div>P{playerNumber}</div>
       </div>
 
       <div id='profile-counter' className={`p-0.5 lg:p-1.5 w-14 lg:w-20 h-fit rounded-2xl text-center lg:text-2xl shadow-mainShadow ${player === "black" ? "text-dark" : "text-purple"}`}>
-        {disksQuantity}
-      </div>
+        {disksQuantity} 
+      </div> {/* show the number of disks in the playGround*/}
 
     </div>
   );

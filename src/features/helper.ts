@@ -6,9 +6,11 @@ type Disks = {
     diskId: string, color: null | "purple" | "black", isEmpty: boolean, isPossible: boolean
 }[][];
 
+const orderOfRowsName = ["a", "b", "c", "d", "e", "f", "g", "h"];  // we get row index of disks array of object with this order
+
 export const disksClickHandler = (playGroundData: playgroundType, payload: { diskId: string, isEmpty: boolean, isPossible: boolean }): Disks => {
-    // if conditions are true , we get effected nuts by played move
-    // and change their states with a loop based on the findEffectedNuts function output
+    // if conditions are true , we get effected disks by played move
+    // and change their states with a loop based on the findEffectedDisks function output
     const { diskId, isEmpty, isPossible } = payload;
 
     if ((isEmpty && isPossible)) {
@@ -16,7 +18,7 @@ export const disksClickHandler = (playGroundData: playgroundType, payload: { dis
         let newDisksData: Disks = clonedData.disks;
         let clickedColor: DisksColor = clonedData.playerTurn;
 
-        const diskRowIndex = clonedData.orderOfRowsName.indexOf(diskId.split("")[0]);
+        const diskRowIndex = orderOfRowsName.indexOf(diskId.split("")[0]);
         const diskColumnIndex = Number(diskId.split("")[1]);
 
         let result = findEffectedDisks(clonedData, diskId);
@@ -38,7 +40,7 @@ export const disksClickHandler = (playGroundData: playgroundType, payload: { dis
 
 
 function findEffectedDisks(playGroundData: playgroundType, diskId: string) {
-    // with this function we find any nuts which can be effected by player moves 
+    // with this function we find any disks which can be effected by player moves 
     // we use the result to change colors after the move and show guides to player
 
     const clonedData = cloneDeep(playGroundData);
@@ -46,131 +48,131 @@ function findEffectedDisks(playGroundData: playgroundType, diskId: string) {
     let clickedColor: DisksColor = clonedData.playerTurn === "black" ? "black" : "purple";
     let opponentColor: DisksColor = clonedData.playerTurn === "purple" ? "black" : "purple";
 
-    const nutRowIndex = clonedData.orderOfRowsName.indexOf(diskId.split("")[0]);
-    const nutColumnIndex = Number(diskId.split("")[1]);
+    const diskRowIndex = orderOfRowsName.indexOf(diskId.split("")[0]);
+    const diskColumnIndex = Number(diskId.split("")[1]);
     // getting number of row and column 
 
-    const upperNutsChanged: string[] =
-        nutRowIndex > 0
+    const upperDisksChanged: string[] =
+        diskRowIndex > 0
             ? changeUpperDisksColor(
                 clonedData,
-                nutRowIndex,
-                nutColumnIndex,
+                diskRowIndex,
+                diskColumnIndex,
                 opponentColor,
                 clickedColor
             )
             : [];
 
-    const belowNutsChanged: string[] =
-        nutRowIndex < 7
+    const belowDisksChanged: string[] =
+        diskRowIndex < 7
             ? changeBelowDisksColor(
                 clonedData,
-                nutRowIndex,
-                nutColumnIndex,
+                diskRowIndex,
+                diskColumnIndex,
                 opponentColor,
                 clickedColor
             )
             : [];
 
-    const leftNutsChanged: string[] =
-        nutColumnIndex > 0
+    const leftDisksChanged: string[] =
+        diskColumnIndex > 0
             ? changeLeftDisksColor(
                 clonedData,
-                nutRowIndex,
-                nutColumnIndex,
+                diskRowIndex,
+                diskColumnIndex,
                 opponentColor,
                 clickedColor
             )
             : [];
 
-    const rightNutsChanged: string[] =
-        nutColumnIndex < 7
+    const rightDisksChanged: string[] =
+        diskColumnIndex < 7
             ? changeRightDisksColor(
                 clonedData,
-                nutRowIndex,
-                nutColumnIndex,
+                diskRowIndex,
+                diskColumnIndex,
                 opponentColor,
                 clickedColor
             )
             : [];
 
-    const upRightNutsChanged: string[] =
-        nutColumnIndex < 7 && nutRowIndex > 0
+    const upRightDisksChanged: string[] =
+        diskColumnIndex < 7 && diskRowIndex > 0
             ? changeUpRightDisksColor(
                 clonedData,
-                nutRowIndex,
-                nutColumnIndex,
+                diskRowIndex,
+                diskColumnIndex,
                 opponentColor,
                 clickedColor
             )
             : [];
 
-    const belowRightNutsChanged: string[] =
-        nutColumnIndex < 7 && nutRowIndex < 7
+    const belowRightDisksChanged: string[] =
+        diskColumnIndex < 7 && diskRowIndex < 7
             ? changeBelowRightDisksColor(
                 clonedData,
-                nutRowIndex,
-                nutColumnIndex,
+                diskRowIndex,
+                diskColumnIndex,
                 opponentColor,
                 clickedColor
             )
             : [];
 
-    const upLeftNutsChanged: string[] =
-        nutColumnIndex > 0 && nutRowIndex > 0
+    const upLeftDisksChanged: string[] =
+        diskColumnIndex > 0 && diskRowIndex > 0
             ? changeUpLeftDisksColor(
                 clonedData,
-                nutRowIndex,
-                nutColumnIndex,
+                diskRowIndex,
+                diskColumnIndex,
                 opponentColor,
                 clickedColor
             )
             : [];
 
-    const belowLeftNutsChanged: string[] =
-        nutColumnIndex > 0 && nutRowIndex < 7
+    const belowLeftDisksChanged: string[] =
+        diskColumnIndex > 0 && diskRowIndex < 7
             ? changeBelowLeftDisksColor(
                 clonedData,
-                nutRowIndex,
-                nutColumnIndex,
+                diskRowIndex,
+                diskColumnIndex,
                 opponentColor,
                 clickedColor
             )
             : [];
 
-    const allNutsChangedColor: string[] = [
-        ...upperNutsChanged,
-        ...belowNutsChanged,
-        ...rightNutsChanged,
-        ...leftNutsChanged,
-        ...upRightNutsChanged,
-        ...belowRightNutsChanged,
-        ...upLeftNutsChanged,
-        ...belowLeftNutsChanged,
+    const allDisksChangedColor: string[] = [
+        ...upperDisksChanged,
+        ...belowDisksChanged,
+        ...rightDisksChanged,
+        ...leftDisksChanged,
+        ...upRightDisksChanged,
+        ...belowRightDisksChanged,
+        ...upLeftDisksChanged,
+        ...belowLeftDisksChanged,
     ];
 
-    return allNutsChangedColor;
+    return allDisksChangedColor;
 };
 
 
-// these functions find possible effected nuts in 8 directions
+// these functions find possible effected disks in 8 directions
 function changeUpperDisksColor(
     playGroundData: playgroundType,
-    nutRowIndex: number,
-    nutColumnIndex: number,
+    diskRowIndex: number,
+    diskColumnIndex: number,
     opponentColor: DisksColor,
     clickedColor: DisksColor,
 ) {
     const { disks } = playGroundData;
-    let upperDisksChanged = []; // list of nut fields which must change color in up direction
-    for (let row = nutRowIndex - 1; row >= 0; row--) {
-        if (disks[row][nutColumnIndex].color === opponentColor && row === 0) {
+    let upperDisksChanged = []; // list of disk fields which must change color in up direction
+    for (let row = diskRowIndex - 1; row >= 0; row--) {
+        if (disks[row][diskColumnIndex].color === opponentColor && row === 0) {
             upperDisksChanged = [];
             break;
-        } else if (disks[row][nutColumnIndex].color === clickedColor) {
+        } else if (disks[row][diskColumnIndex].color === clickedColor) {
             break;
-        } else if (disks[row][nutColumnIndex].color === opponentColor) {
-            upperDisksChanged.push(disks[row][nutColumnIndex].diskId);
+        } else if (disks[row][diskColumnIndex].color === opponentColor) {
+            upperDisksChanged.push(disks[row][diskColumnIndex].diskId);
         } else {
             upperDisksChanged = [];
             break;
@@ -182,22 +184,22 @@ function changeUpperDisksColor(
 
 function changeBelowDisksColor(
     playGroundData: playgroundType,
-    nutRowIndex: number,
-    nutColumnIndex: number,
+    diskRowIndex: number,
+    diskColumnIndex: number,
     opponentColor: DisksColor,
     clickedColor: DisksColor,
 ) {
     const { disks } = playGroundData;
-    let belowDisksChanged = []; // list of nut fields which must change color in up direction
+    let belowDisksChanged = []; // list of disk fields which must change color in up direction
 
-    for (let row = nutRowIndex + 1; row <= 7; row++) {
-        if (disks[row][nutColumnIndex].color === opponentColor && row === 7) {
+    for (let row = diskRowIndex + 1; row <= 7; row++) {
+        if (disks[row][diskColumnIndex].color === opponentColor && row === 7) {
             belowDisksChanged = [];
             break;
-        } else if (disks[row][nutColumnIndex].color === clickedColor) {
+        } else if (disks[row][diskColumnIndex].color === clickedColor) {
             break;
-        } else if (disks[row][nutColumnIndex].color === opponentColor) {
-            belowDisksChanged.push(disks[row][nutColumnIndex].diskId);
+        } else if (disks[row][diskColumnIndex].color === opponentColor) {
+            belowDisksChanged.push(disks[row][diskColumnIndex].diskId);
         } else {
             belowDisksChanged = [];
             break;
@@ -209,22 +211,22 @@ function changeBelowDisksColor(
 
 function changeLeftDisksColor(
     playGroundData: playgroundType,
-    nutRowIndex: number,
-    nutColumnIndex: number,
+    diskRowIndex: number,
+    diskColumnIndex: number,
     opponentColor: DisksColor,
     clickedColor: DisksColor,
 ) {
     const { disks } = playGroundData;
-    let leftDisksChanged = []; // list of nut fields which must change color in up direction
+    let leftDisksChanged = []; // list of disk fields which must change color in up direction
 
-    for (let column = nutColumnIndex - 1; column >= 0; column--) {
-        if (disks[nutRowIndex][column].color === opponentColor && column === 0) {
+    for (let column = diskColumnIndex - 1; column >= 0; column--) {
+        if (disks[diskRowIndex][column].color === opponentColor && column === 0) {
             leftDisksChanged = [];
             break;
-        } else if (disks[nutRowIndex][column].color === clickedColor) {
+        } else if (disks[diskRowIndex][column].color === clickedColor) {
             break;
-        } else if (disks[nutRowIndex][column].color === opponentColor) {
-            leftDisksChanged.push(disks[nutRowIndex][column].diskId);
+        } else if (disks[diskRowIndex][column].color === opponentColor) {
+            leftDisksChanged.push(disks[diskRowIndex][column].diskId);
         } else {
             leftDisksChanged = [];
             break;
@@ -236,22 +238,22 @@ function changeLeftDisksColor(
 
 function changeRightDisksColor(
     playGroundData: playgroundType,
-    nutRowIndex: number,
-    nutColumnIndex: number,
+    diskRowIndex: number,
+    diskColumnIndex: number,
     opponentColor: DisksColor,
     clickedColor: DisksColor,
 ) {
     const { disks } = playGroundData;
-    let rightDisksChanged = []; // list of nut fields which must change color in up direction
+    let rightDisksChanged = []; // list of disk fields which must change color in up direction
 
-    for (let column = nutColumnIndex + 1; column <= 7; column++) {
-        if (disks[nutRowIndex][column].color === opponentColor && column === 7) {
+    for (let column = diskColumnIndex + 1; column <= 7; column++) {
+        if (disks[diskRowIndex][column].color === opponentColor && column === 7) {
             rightDisksChanged = [];
             break;
-        } else if (disks[nutRowIndex][column].color === clickedColor) {
+        } else if (disks[diskRowIndex][column].color === clickedColor) {
             break;
-        } else if (disks[nutRowIndex][column].color === opponentColor) {
-            rightDisksChanged.push(disks[nutRowIndex][column].diskId);
+        } else if (disks[diskRowIndex][column].color === opponentColor) {
+            rightDisksChanged.push(disks[diskRowIndex][column].diskId);
         } else {
             rightDisksChanged = [];
             break;
@@ -262,15 +264,15 @@ function changeRightDisksColor(
 
 function changeUpRightDisksColor(
     playGroundData: playgroundType,
-    nutRowIndex: number,
-    nutColumnIndex: number,
+    diskRowIndex: number,
+    diskColumnIndex: number,
     opponentColor: DisksColor,
     clickedColor: DisksColor,
 ) {
     const { disks } = playGroundData;
-    let upRightDisksChanged = []; // list of nut fields which must change color in up direction
-    let row = nutRowIndex - 1,
-        column = nutColumnIndex + 1;
+    let upRightDisksChanged = []; // list of disk fields which must change color in up direction
+    let row = diskRowIndex - 1,
+        column = diskColumnIndex + 1;
     while (row >= 0 && column <= 7) {
         if (
             disks[row][column].color === opponentColor &&
@@ -296,15 +298,15 @@ function changeUpRightDisksColor(
 
 function changeBelowRightDisksColor(
     playGroundData: playgroundType,
-    nutRowIndex: number,
-    nutColumnIndex: number,
+    diskRowIndex: number,
+    diskColumnIndex: number,
     opponentColor: DisksColor,
     clickedColor: DisksColor,
 ) {
     const { disks } = playGroundData;
-    let belowRightDisksChanged = []; // list of nut fields which must change color in below direction
-    let row = nutRowIndex + 1,
-        column = nutColumnIndex + 1;
+    let belowRightDisksChanged = []; // list of disk fields which must change color in below direction
+    let row = diskRowIndex + 1,
+        column = diskColumnIndex + 1;
     while (row <= 7 && column <= 7) {
         if (
             disks[row][column].color === opponentColor &&
@@ -330,15 +332,15 @@ function changeBelowRightDisksColor(
 
 function changeUpLeftDisksColor(
     playGroundData: playgroundType,
-    nutRowIndex: number,
-    nutColumnIndex: number,
+    diskRowIndex: number,
+    diskColumnIndex: number,
     opponentColor: DisksColor,
     clickedColor: DisksColor,
 ) {
     const { disks } = playGroundData;
-    let upLeftDisksChanged = []; // list of nut fields which must change color in up direction
-    let row = nutRowIndex - 1,
-        column = nutColumnIndex - 1;
+    let upLeftDisksChanged = []; // list of disk fields which must change color in up direction
+    let row = diskRowIndex - 1,
+        column = diskColumnIndex - 1;
     while (row >= 0 && column >= 0) {
         if (
             disks[row][column].color === opponentColor &&
@@ -363,15 +365,15 @@ function changeUpLeftDisksColor(
 
 function changeBelowLeftDisksColor(
     playGroundData: playgroundType,
-    nutRowIndex: number,
-    nutColumnIndex: number,
+    diskRowIndex: number,
+    diskColumnIndex: number,
     opponentColor: DisksColor,
     clickedColor: DisksColor,
 ) {
     const { disks } = playGroundData;
-    let belowLeftDisksChanged = []; // list of nut fields which must change color in up direction
-    let row = nutRowIndex + 1,
-        column = nutColumnIndex - 1;
+    let belowLeftDisksChanged = []; // list of disk fields which must change color in up direction
+    let row = diskRowIndex + 1,
+        column = diskColumnIndex - 1;
     while (row <= 7 && column >= 0) {
         if (
             disks[row][column].color === opponentColor &&
@@ -397,15 +399,15 @@ function changeBelowLeftDisksColor(
 
 export const findPossibleMoves = (playGroundData: playgroundType) => {
     // find possible moves for each player and set item.isPossible to true for each disk
-    // this action leads to show a guid circle in the nut field
+    // this action leads to show a guid circle in the disk field
 
     let disks = cloneDeep(playGroundData.disks);
 
     for (const row of disks) {
-        for (const nut of row) {
-            if (nut.isEmpty) {
-                let possibleNuts = findEffectedDisks(playGroundData, nut.diskId);
-                nut.isPossible = possibleNuts.length > 0 ? true : false;
+        for (const disk of row) {
+            if (disk.isEmpty) {
+                let possibleDisks = findEffectedDisks(playGroundData, disk.diskId);
+                disk.isPossible = possibleDisks.length > 0 ? true : false;
             }
         }
     }

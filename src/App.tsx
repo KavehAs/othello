@@ -1,23 +1,25 @@
 import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "./app/reduxHooks";
+
+// Redux actions
+import { setModalText } from "./features/playground/playgroundSlice";
+
+// Components
 import InfoSection from "./Components/InfoSection";
 import PlayGround from "./Components/PlayGround";
-import { useAppDispatch, useAppSelector } from "./app/reduxHooks";
-import { setModalText } from "./features/playground/playgroundSlice";
 import GameResultModal from "./Components/GameResultModal";
 
-function App() {
+function App() { 
   const playGroundData = useAppSelector((state) => state.playground);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  useEffect(() => { // When ever the game has ended , this effect detect the result and trigger the GameResultModal by dispatching its action
     if (playGroundData.endGame) {
       const { blackNumber, purpleNumber } = playGroundData;
       if (blackNumber > purpleNumber) dispatch(setModalText("Black is Winner"));
       else if (blackNumber < purpleNumber)
         dispatch(setModalText("Purple is Winner"));
       else dispatch(setModalText("Game is Draw"));
-
-
     }
   }, [playGroundData.endGame]);
 

@@ -1,7 +1,8 @@
-import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+
+// Helper Functions
 import { disksClickHandler, findPossibleMoves } from '../helper'
-// import type { RootState } from '../../app/reduxStore'
 
 export interface playgroundType {
   disks: {
@@ -10,7 +11,6 @@ export interface playgroundType {
   playerTurn: "black" | "purple",
   blackNumber: number,
   purpleNumber: number,
-  orderOfRowsName: string[],
   endOfPossibilities: boolean,
   endGame: boolean,
   showModal: boolean, // state to handle modal
@@ -104,7 +104,7 @@ const initialState: playgroundType = {
   playerTurn: "black",
   blackNumber: 2, // number of each color disks
   purpleNumber: 2,
-  orderOfRowsName: ["a", "b", "c", "d", "e", "f", "g", "h"],  // we get row index of nuts array of object with this order
+
 
   endOfPossibilities: false,
   // Boolean to detect all Possibilities for two colors have ended
@@ -120,34 +120,34 @@ export const playgroundSlice = createSlice({
   name: 'playground',
   initialState,
   reducers: {
-    diskClicked: (state, action: PayloadAction<{ diskId: string, isEmpty: boolean, isPossible: boolean }>) => {
+    diskClicked: (state, action: PayloadAction<{ diskId: string, isEmpty: boolean, isPossible: boolean }>) => { // disk click Handler 
       state.disks = disksClickHandler(state, action.payload);
     },
-    changePlayerTurn: (state) => {
+    changePlayerTurn: (state) => { // change player turn to play
       state.playerTurn = (state.playerTurn == "black" ? "purple" : "black");
     },
-    possibleMoves: (state) => {
+    setPossibleMoves: (state) => { // find possible moves for next player
       state.disks = findPossibleMoves(state);
     },
-    setDiskQuantities: (state, action: PayloadAction<{ blackQuantity: number, purpleQuantity: number }>) => {
+    setDiskQuantities: (state, action: PayloadAction<{ blackQuantity: number, purpleQuantity: number }>) => { // counting the disks quantity in playground to show the in info section
       state.blackNumber = action.payload.blackQuantity;
       state.purpleNumber = action.payload.purpleQuantity;
     },
-    setEndOfPossibilities: (state, action: PayloadAction<boolean>) => {
+    setEndOfPossibilities: (state, action: PayloadAction<boolean>) => { // check the situation which no player have possible moves
       state.endOfPossibilities = action.payload;
     },
-    setEndGame: (state) => {
+    setEndGame: (state) => { // set the end of the game
       state.endGame = true;
     } , 
-    setModalText: (state , action : PayloadAction<string>) => {
+    setModalText: (state , action : PayloadAction<string>) => { // set the text info and trigger for final modal
       state.modalText = action.payload;
       state.showModal = true;
     } ,
-    gameReset : (state) =>  initialState ,
+    gameReset : (state) =>  initialState , // reset the game
   }
 })
 
 
 export default playgroundSlice.reducer;
 
-export const { diskClicked, changePlayerTurn, possibleMoves, setDiskQuantities, setEndOfPossibilities, setEndGame , setModalText , gameReset} = playgroundSlice.actions;
+export const { diskClicked, changePlayerTurn, setPossibleMoves , setDiskQuantities, setEndOfPossibilities, setEndGame , setModalText , gameReset} = playgroundSlice.actions;
